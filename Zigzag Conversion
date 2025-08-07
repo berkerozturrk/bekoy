@@ -1,0 +1,53 @@
+public class Solution
+{
+    public string Convert(string s, int numRows)
+    {
+        // Eğer satır sayısı 1 ise, metin zaten zikzak değildir, direkt geri döndür.
+        if (numRows == 1)
+        {
+            return s;
+        }
+
+        // Her satır için bir string oluşturmak üzere dizi tanımla.
+        string[] rows = new string[numRows];
+        for (int i = 0; i < numRows; i++)
+        {
+            rows[i] = "";
+        }
+
+        int currentRow = 0;
+        bool directionDown = false; // Başlangıçta yukarı doğru gidiyor.
+
+        // Metindeki her karakter için döngü.
+        foreach (char c in s)
+        {
+            // Karakteri mevcut satıra ekle.
+            rows[currentRow] += c.ToString();
+
+            // Eğer ilk veya son satırda isek, yönü değiştir.
+            if (currentRow == 0 || currentRow == numRows - 1)
+            {
+                directionDown = !directionDown;
+            }
+
+            // Yöne göre satır indeksini güncelle.
+            if (directionDown)
+            {
+                currentRow++;
+            }
+            else
+            {
+                currentRow--;
+            }
+        }
+
+        // Tüm satırları birleştirerek nihai sonucu oluştur.
+        string result = "";
+        for (int i = 0; i < numRows; i++)
+        {
+            result += rows[i];
+        }
+
+        return result;
+    }
+}
